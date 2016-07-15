@@ -6,7 +6,7 @@
       <li>All pitches</li>
     </ul>
   </nav>
-  <div class="newPitch" ng-hide="userHasPitch()">
+  <div class="newPitch" ng-hide="userHasPitch">
     <h1>Pitch a New Idea</h1>
     <form class="new-pitch-form">
       <div class="form-group">
@@ -26,8 +26,8 @@
 
 
   <div class="project">
-
-    <button ng-click="getUserPitch()">get pitch</button>
+    {{userPitch.title}}
+    {{userPitch.description}}
 
   </div>
 </section>
