@@ -44,6 +44,7 @@ public class PitchesRestController {
     @RequestMapping(path = "/pitches/owner", method = RequestMethod.GET)
     public ResponseEntity<Object> getMyPitches(HttpSession session) {
         User user = userRepo.findOne(Integer.valueOf((String) session.getAttribute("id")));
+        if (user == null) return new ResponseEntity<Object>(HttpStatus.FORBIDDEN);
         return new ResponseEntity<Object>(pitchRepo.findFirstByOwner(user), HttpStatus.OK);
     }
     //  pitches - get
@@ -54,6 +55,8 @@ public class PitchesRestController {
     //  pitches/interest - get
     @RequestMapping(path = "/pitches/interest", method = RequestMethod.GET)
     public ResponseEntity<Object> getInterestPitches(HttpSession session) {
+        User user = userRepo.findOne(Integer.valueOf((String) session.getAttribute("id")));
+        if (user == null) return new ResponseEntity<Object>(HttpStatus.FORBIDDEN);
         int id = Integer.valueOf((String) session.getAttribute("id"));
         ArrayList<Pitch> pitches = (ArrayList<Pitch>) pitchRepo.findAll();
         pitches = pitches.stream()
@@ -65,6 +68,7 @@ public class PitchesRestController {
     @RequestMapping(path = "/pitches", method = RequestMethod.POST)
     public ResponseEntity<Object> createPitch(@RequestBody Pitch pitch, HttpSession session) {
         User user = userRepo.findOne(Integer.valueOf((String) session.getAttribute("id")));
+        if (user == null) return new ResponseEntity<Object>(HttpStatus.FORBIDDEN);
         pitch = new Pitch(pitch.getTitle(), pitch.getDescription(), user);
         pitchRepo.save(pitch);
         return new ResponseEntity<Object>(HttpStatus.OK);
@@ -73,6 +77,7 @@ public class PitchesRestController {
     @RequestMapping(path = "/pitches/{id}/interest", method = RequestMethod.PUT)
     public HttpStatus addInterest(HttpSession session, @PathVariable("id") int id) {
         User user = userRepo.findOne(Integer.valueOf((String) session.getAttribute("id")));
+        if (user == null) return HttpStatus.FORBIDDEN;
         Pitch pitch = pitchRepo.findOne(id);
         if (pitch != null) {
             pitch.getUsers().add(user);
@@ -84,6 +89,7 @@ public class PitchesRestController {
     @RequestMapping(path = "/pitches", method = RequestMethod.PUT)
     public ResponseEntity<Object> updatePitch(HttpSession session, @RequestBody Pitch pitchUpdate) {
         User user = userRepo.findOne(Integer.valueOf((String) session.getAttribute("id")));
+        if (user == null) return new ResponseEntity<Object>(HttpStatus.FORBIDDEN);
         Pitch pitch = pitchRepo.findOne(pitchUpdate.getId());
         if (pitchUpdate.getTitle() != null) pitch.setTitle(pitchUpdate.getTitle());
         if (pitchUpdate.getDescription() != null) pitch.setDescription(pitchUpdate.getDescription());
@@ -92,6 +98,7 @@ public class PitchesRestController {
     @RequestMapping(path = "/pitches", method = RequestMethod.DELETE)
     public ResponseEntity<Object> updatePitch(HttpSession session) {
         User user = userRepo.findOne(Integer.valueOf((String) session.getAttribute("id")));
+        if (user == null) return new ResponseEntity<Object>(HttpStatus.FORBIDDEN);
         Pitch pitch = pitchRepo.findFirstByOwner(user);
         return new ResponseEntity<Object>(HttpStatus.OK);
     }
@@ -116,9 +123,11 @@ public class PitchesRestController {
     }
     //  users/create - post username, password, firstName, lastName
     @RequestMapping(path = "/users/create", method = RequestMethod.POST)
-    public HttpStatus createUser(@RequestBody User newUser) {
+    public HttpStatus createUser(@RequestBody User newUser) throws PasswordStorage.CannotPerformOperationException {
         User user = userRepo.findFirstByUsername(newUser.getUsername());
         if (newUser.checkFields()) {
+            newUser.setPassword(PasswordStorage.createHash(user.getPassword()));
+            userRepo.save(user);
             return  HttpStatus.OK;
         }
         return HttpStatus.FORBIDDEN;
