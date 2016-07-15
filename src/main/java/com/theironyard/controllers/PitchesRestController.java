@@ -69,6 +69,7 @@ public class PitchesRestController {
     public ResponseEntity<Object> createPitch(@RequestBody Pitch pitch, HttpSession session) {
         User user = userRepo.findOne((Integer) session.getAttribute("id"));
         if (user == null) return new ResponseEntity<Object>(HttpStatus.FORBIDDEN);
+        if (user.getPitch() != null) return new ResponseEntity<Object>(HttpStatus.FORBIDDEN);
         pitch = new Pitch(pitch.getTitle(), pitch.getDescription(), user);
         pitchRepo.save(pitch);
         return new ResponseEntity<Object>(pitch, HttpStatus.OK);
