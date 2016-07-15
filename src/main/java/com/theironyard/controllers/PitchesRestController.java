@@ -109,7 +109,7 @@ public class PitchesRestController {
         if (user == null) {
             return new ResponseEntity<Object>(HttpStatus.FORBIDDEN);
         }
-        if (PasswordStorage.verifyPassword(user.getPassword(), loginUser.getPassword())) {
+        if (PasswordStorage.verifyPassword(loginUser.getPassword(), user.getPassword())) {
             session.setAttribute("id", user.getId());
             return new ResponseEntity<Object>(HttpStatus.OK);
         }
