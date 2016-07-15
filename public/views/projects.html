@@ -7,22 +7,23 @@
     </ul>
   </nav>
   <div class="newPitch" ng-hide="userHasPitch()">
-    <form class="newPitch">
+    <h1>Pitch a New Idea</h1>
+    <form class="new-pitch-form">
       <div class="form-group">
         <label for="title">
           Title
         </label>
-        <input type="text" name="title" ng-model="pitchTitle">
+        <input type="text" class="form-control" name="title" ng-model="pitchTitle">
       </div>
-      <div class="from-group">
+      <div class="form-group">
         <label for="description">description</label>
-        <textarea type="text" name="description" ng-model="pitchDescript">
+        <textarea type="text" class="form-control" name="description" ng-model="pitchDescript">
         </textarea>
       </div>
-      <button class="btn btn-primary" ng-click="addPitch()">Submit</button>
+      <button class="btn btn-primary btn-block btn-lg" ng-click="addPitch()">Submit</button>
     </form>
   </div>
   <div class="project">
-    
+
   </div>
 </section>

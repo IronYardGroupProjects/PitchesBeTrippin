@@ -21,3 +21,8 @@ header > h1 {
   text-align: center;
   font-size: 7em;
 }
+
+.newPitch {
+  width:30%;
+  display: inline-block;
+}

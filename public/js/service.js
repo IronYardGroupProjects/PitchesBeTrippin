@@ -90,7 +90,7 @@ angular.module('app')
 
       userHasPitch: function(){
         return UserPitch.length > 1 ? true : false;
-      }
+      },
 
       //user pitches
 
