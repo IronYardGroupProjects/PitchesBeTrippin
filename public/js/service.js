@@ -2,7 +2,7 @@ angular.module('app')
 
   .factory('mainService', ['$http', function($http){
 
-    var UserPitch = [];
+    var UserPitch = ["a"];
     var InterstedPitches=[];
     var AllPitches=[];
 
@@ -89,7 +89,7 @@ angular.module('app')
       signUp : signUp,
 
       userHasPitch: function(){
-        return UserPitch.length > 1 ? true : false;
+        return UserPitch.length >= 1 ? true : false;
       },
 
       //user pitches
