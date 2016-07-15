@@ -1,10 +1,10 @@
 package com.theironyard.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by alexanderhughes on 7/15/16.
@@ -76,5 +76,13 @@ public class User {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public boolean checkFields() {
+        HashSet fields = new HashSet(Arrays.asList(username, password, firstName, lastName));
+        if (!(fields.contains("") || fields.contains(null))) {
+            return true;
+        }
+        return false;
     }
 }

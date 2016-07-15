@@ -25,7 +25,7 @@ public class Pitch {
 
     @ManyToMany(cascade=CascadeType.ALL)
     @JoinTable(name="user_pitch", joinColumns=@JoinColumn(name="user_id"),
-            inverseJoinColumns=@JoinColumn(name="pitch_id"))
+    inverseJoinColumns=@JoinColumn(name="pitch_id"))
     List<User> users;
 
     public Pitch() {

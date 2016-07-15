@@ -4,6 +4,7 @@ import com.theironyard.entities.Pitch;
 import com.theironyard.entities.User;
 import com.theironyard.services.PitchRepository;
 import com.theironyard.services.UserRepository;
+import com.theironyard.utils.PasswordStorage;
 import org.h2.tools.Server;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -69,7 +70,7 @@ public class PitchesRestController {
         User user = userRepo.findOne(Integer.valueOf((String) session.getAttribute("id")));
         pitch = new Pitch(pitch.getTitle(), pitch.getDescription(), user);
         pitchRepo.save(pitch);
-        return ResponseEntity<Object>(HttpStatus.OK);
+        return new ResponseEntity<Object>(HttpStatus.OK);
     }
     //  pitches/{id}/interest - put
     @RequestMapping(path = "/pitches", method = RequestMethod.PUT)
@@ -88,13 +89,30 @@ public class PitchesRestController {
     }
     //  login -post
     @RequestMapping(path = "/login", method = RequestMethod.POST)
-    public ResponseEntity<Object> login(HttpSession session, @RequestBody User loginUser) {
+    public ResponseEntity<Object> login(HttpSession session, @RequestBody User loginUser) throws PasswordStorage.InvalidHashException, PasswordStorage.CannotPerformOperationException {
         User user = userRepo.findFirstByUsername(loginUser.getUsername());
-        if (user )
-        session.setAttribute("id", user.getId());
+        if (user == null) {
+            return new ResponseEntity<Object>(HttpStatus.FORBIDDEN);
+        }
+        if (PasswordStorage.verifyPassword(user.getPassword(), loginUser.getPassword())) {
+            session.setAttribute("id", user.getId());
+            return new ResponseEntity<Object>(HttpStatus.OK);
+        }
+        return new ResponseEntity<Object>(HttpStatus.FORBIDDEN);
     }
-
     //  logout - post
-
+    @RequestMapping(path = "/logout", method = RequestMethod.POST)
+    public HttpStatus logout(HttpSession session) {
+        session.invalidate();
+        return HttpStatus.OK;
+    }
     //  users/create - post username, password, firstName, lastName
+    @RequestMapping(path = "/users/create", method = RequestMethod.POST)
+    public HttpStatus createUser(@RequestBody User newUser) {
+        User user = userRepo.findFirstByUsername(newUser.getUsername());
+        if (newUser.checkFields()) {
+            return  HttpStatus.OK;
+        }
+        return HttpStatus.FORBIDDEN;
+    }
 }
