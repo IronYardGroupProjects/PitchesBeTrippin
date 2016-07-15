@@ -9,10 +9,7 @@ import org.h2.tools.Server;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -73,6 +70,17 @@ public class PitchesRestController {
         return new ResponseEntity<Object>(HttpStatus.OK);
     }
     //  pitches/{id}/interest - put
+    @RequestMapping(path = "/pitches/{id}/interest", method = RequestMethod.PUT)
+    public HttpStatus addInterest(HttpSession session, @PathVariable("id") int id) {
+        User user = userRepo.findOne(Integer.valueOf((String) session.getAttribute("id")));
+        Pitch pitch = pitchRepo.findOne(id);
+        if (pitch != null) {
+            pitch.getUsers().add(user);
+            pitchRepo.save(pitch);
+            return HttpStatus.OK;
+        }
+        return HttpStatus.FORBIDDEN;
+    }
     @RequestMapping(path = "/pitches", method = RequestMethod.PUT)
     public ResponseEntity<Object> updatePitch(HttpSession session, @RequestBody Pitch pitchUpdate) {
         User user = userRepo.findOne(Integer.valueOf((String) session.getAttribute("id")));
