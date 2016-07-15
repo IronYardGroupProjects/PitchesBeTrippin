@@ -1,12 +1,5 @@
-<section class="container">
-  <nav>
-    <ul>
-      <li>My Pitch</li>
-      <li>Interested</li>
-      <li>All pitches</li>
-    </ul>
-  </nav>
-  <div class="newPitch" ng-hide="userHasPitch">
+<div class="container">
+  <aside class="newPitch" ng-hide="userHasPitch">
     <h1>Pitch a New Idea</h1>
     <form class="new-pitch-form">
       <div class="form-group">
@@ -22,12 +15,39 @@
       </div>
       <button class="btn btn-primary btn-block btn-lg" ng-click="newUserPitch()">Submit</button>
     </form>
-  </div>
+  </aside>
 
 
-  <div class="project">
-    {{userPitch.title}}
-    {{userPitch.description}}
+  <section class="project">
+    <nav>
+      <ul>
+        <li>My Pitch</li>
+        <li>Interested</li>
+        <li>All pitches</li>
+      </ul>
+    </nav>
+    <div class="all-pitches">
+      <div ng-repeat="pitch in allPitches">
+        <h4>{{pitch.title}}</h4>
+        <br>
+        <p>{{pitch.description}}</p>
+        <br>
+        <span class="owner">owner: {{pitch.owner.firstName}}, {{pitch.owner.lastName}}</span>
+        <button ng-click="toggleInterest(pitch)">interested</button>
+        <div class="interested" ng-repeat="users in pitch.users">
+          {{users.firstName}}, {{users.lastName}}
+        </div>
+      </div>
 
-  </div>
-</section>
+    </div>
+    <div class="my-pitches">
+      <div>
+        <h4>{{title}}</h4>
+        <br>
+        <p>{{description}}</p>
+        <br>
+        <span class="owner">owner: {{owner.firstName}}, {{owner.lastName}}</span>
+      </div>
+    </div>
+  </section>
+</div>

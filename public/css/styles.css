@@ -12,8 +12,17 @@ section {
   display: inline-block;
 }
 
+nav > ul {
+  list-style: none;
+}
+
+nav > ul > li {
+  display: inline-block;
+  margin: 10px;
+}
+
 header {
-  margin: 0 20px;
+  margin: 0 20px 30px;
   border-bottom: 1px solid grey;
 }
 
@@ -24,5 +33,13 @@ header > h1 {
 
 .newPitch {
   width:30%;
-  display: inline-block;
+  float: left;
+  text-align: center;
+  border: 1px solid grey;
+  padding: 10px;
+  padding-bottom: 20px;
+}
+
+.owner {
+  font-weight: bolder;
 }

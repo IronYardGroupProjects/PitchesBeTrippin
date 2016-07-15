@@ -71,7 +71,8 @@ angular.module('app')
 
       var getAllPitches = function(){
         $http.get('/pitches').then(function(data){
-          angular.copy(data, AllPitches);
+          angular.copy(data.data, AllPitches);
+          console.log(AllPitches);
         })
         return AllPitches;
       }

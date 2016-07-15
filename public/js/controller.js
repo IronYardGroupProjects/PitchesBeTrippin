@@ -13,6 +13,7 @@ angular.module('app')
         mainService.addPitch($scope.pitchTitle, $scope.pitchDescript)
       }
 
+
       $scope.userHasPitch = mainService.userHasPitch();
 
       $scope.allPitches = mainService.getAll();
@@ -21,12 +22,9 @@ angular.module('app')
 
       $scope.InterstedPitches = mainService.getInterested();
 
-      $scope.userHasPitch = function(){
-        return mainService.userHasPitch();
-      }
-
-      $scope.toggleInterest = function(){
-        mainService.getInterested();
+      $scope.toggleInterest = function(pitch){
+        console.log(pitch);
+        mainService.toggleInterest(pitch.id);
       }
 
 
