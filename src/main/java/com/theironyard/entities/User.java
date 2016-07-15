@@ -1,5 +1,7 @@
 package com.theironyard.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Arrays;
@@ -27,6 +29,7 @@ public class User {
     @NotNull
     String lastName;
 
+    @JsonIgnore
     @OneToOne(mappedBy = "owner")
     Pitch pitch;
 
