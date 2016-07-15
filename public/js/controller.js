@@ -2,31 +2,32 @@ angular.module('app')
 
   .controller('mainController', ['$scope', 'mainService', function($scope, mainService){
 
+
+      $scope.userHasPitch = false;
+
       $scope.loggedIn = function(){
         return mainController.loggedIn();
       }
 
       $scope.newUserPitch = function(){
-        console.log("here");
         mainService.addPitch($scope.pitchTitle, $scope.pitchDescript)
       }
+
+      $scope.userHasPitch = mainService.userHasPitch();
+
+      $scope.allPitches = mainService.getAll();
+
+      $scope.userPitch = mainService.getUserPitch();
+
+      $scope.InterstedPitches = mainService.getInterested();
 
       $scope.userHasPitch = function(){
         return mainService.userHasPitch();
       }
 
-    // $scope.allPitches = mainService.getAll();
-
-     $scope.getUserPitch = function(){
-       console.log("here");
-       mainService.getUserPitch()
-     };
-
-    // $scope.InterstedPitches = mainService.getInterested();
-
-     $scope.toggleInterest = function(){
-       mainService.getInterested();
-     }
+      $scope.toggleInterest = function(){
+        mainService.getInterested();
+      }
 
 
   }])

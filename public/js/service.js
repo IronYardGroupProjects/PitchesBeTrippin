@@ -30,8 +30,7 @@ angular.module('app')
      //USER PITCH ROUTES
      var getUserPitch = function(){
        $http.get('/pitches/owner').then(function(data){
-         angular.copy(data, UserPitch)
-         console.log(UserPitch);
+         angular.copy(data.data, UserPitch)
        })
        return UserPitch;
      }
@@ -88,7 +87,12 @@ angular.module('app')
       signUp : signUp,
 
       userHasPitch: function(){
-        return UserPitch.length >= 1 ? true : false;
+        console.log(UserPitch.length);
+        if(UserPitch.length >= 1){
+          return true;
+        }else{
+          return false;
+        }
       },
 
       //user pitches
