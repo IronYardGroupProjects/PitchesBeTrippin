@@ -43,7 +43,7 @@ public class PitchesRestController {
     //  pitches/owner
     @RequestMapping(path = "/pitches/owner", method = RequestMethod.GET)
     public ResponseEntity<Object> getMyPitches(HttpSession session) {
-        User user = userRepo.findOne(Integer.valueOf((String) session.getAttribute("id")));
+        User user = userRepo.findOne((Integer) session.getAttribute("id"));
         if (user == null) return new ResponseEntity<Object>(HttpStatus.FORBIDDEN);
         return new ResponseEntity<Object>(pitchRepo.findFirstByOwner(user), HttpStatus.OK);
     }
