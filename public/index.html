@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html ng-app="app">
+  <head>
+    <meta charset="utf-8">
+    <title>Pitches be Trippin</title>
+
+    <!--styles-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+
+    <!--libs-->
+    <script src="node_modules/angular/angular.js" charset="utf-8"></script>
+
+    <!--scripts-->
+    <script src="js/app.js" charset="utf-8"></script>
+    <script src="js/controller.js" charset="utf-8"></script>
+    <script src="js/service.js" charset="utf-8"></script>
+  </head>
+  <body ng-controller="mainController">
+
+    <header>
+      <h1> Pitches Be Trippin</h1>
+    <nav>
+      <ul>
+        <li>My Pitch</li>
+        <li>Interested</li>
+        <li>All pitches</li>
+      </ul>
+    </nav>
+    </header>
+    <aside>
+      <form>
+        <div class="form-group">
+          <label for="userName">userName</label>
+          <input type="text" class="form-control" name="userName" ng-model="uName">
+        </div>
+        <div class="form-group">
+          <label for="password">password</label>
+          <input type="password" class="form-control" name="password" ng-model="pWord">
+        </div>
+        <button class="btn btn-primary" ng-click="login()">Log in</button>
+      </form>
+    </aside>
+  </body>
+</html>
