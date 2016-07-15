@@ -22,9 +22,7 @@ angular.module('app')
 
      //uname password firstName lastName
      var signUp = function(a,b,c,d){
-       $http.post('/users/create', {username: a, password: b, firstName: c, lastName: d}).then(function(data){
-         console.log(data);
-       })
+       return $http.post('/users/create', {username: a, password: b, firstName: c, lastName: d});
      }
 
 

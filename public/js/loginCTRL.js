@@ -10,7 +10,10 @@ angular.module('app')
         };
 
         $scope.signUp = function(){
-          mainService.signUp($scope.signupUser, $scope.signupPassword, $scope.firstName, $scope.lastName);
+          mainService.signUp($scope.signupUser, $scope.signupPassword, $scope.firstName, $scope.lastName).then(function(data){
+            console.log(data);
+            data.data === 'OK' ? $scope.signupToggled = false : null;
+          })
         };
 
         $scope.logout = function(){
