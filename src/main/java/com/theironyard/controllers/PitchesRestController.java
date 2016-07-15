@@ -126,8 +126,8 @@ public class PitchesRestController {
     public HttpStatus createUser(@RequestBody User newUser) throws PasswordStorage.CannotPerformOperationException {
         User user = userRepo.findFirstByUsername(newUser.getUsername());
         if (newUser.checkFields()) {
-            newUser.setPassword(PasswordStorage.createHash(user.getPassword()));
-            userRepo.save(user);
+            newUser.setPassword(PasswordStorage.createHash(newUser.getPassword()));
+            userRepo.save(newUser);
             return  HttpStatus.OK;
         }
         return HttpStatus.FORBIDDEN;
