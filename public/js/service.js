@@ -9,10 +9,9 @@ angular.module('app')
      ///LOGIN / LOGOUT / SIGNUP
 
      var login = function(uname, pword) {
-       console.log(uname, pword);
-      //  return $http.post('/login', {username:uname, password: pword}).then(function(data){
-      //    console.log(data);
-      //  })
+       $http.post('/login', {username:uname, password: pword}).then(function(data){
+         console.log(data);
+       })
      }
 
      var logout = function(){
@@ -88,6 +87,10 @@ angular.module('app')
       logout: logout,
 
       signUp : signUp,
+
+      userHasPitch: function(){
+        return UserPitch.length > 1 ? true : false;
+      }
 
       //user pitches
 

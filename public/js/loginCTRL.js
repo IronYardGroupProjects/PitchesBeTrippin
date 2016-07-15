@@ -9,7 +9,7 @@ angular.module('app')
           mainService.login($scope.uName, $scope.pWord)
         };
 
-        $scope.signup = function(){
+        $scope.signUp = function(){
           mainService.signUp($scope.signupUser, $scope.signupPassword, $scope.firstName, $scope.lastName);
         };
 

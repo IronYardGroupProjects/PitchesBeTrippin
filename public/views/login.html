@@ -19,21 +19,21 @@
   <form id="login-form">
     <div class="form-group">
       <label for="userName">userName</label>
-      <input type="text" class="form-control" name="userName" ng-model="uName">
+      <input type="text" class="form-control" name="userName" ng-model="signupUser">
     </div>
     <div class="form-group">
       <label for="password">password</label>
-      <input type="password" class="form-control" name="password" ng-model="pWord">
+      <input type="password" class="form-control" name="password" ng-model="signupPassword">
     </div>
     <div class="form-group">
       <label for="firstName">First Name</label>
-      <input type="firstName" class="form-control" name="firstName" ng-model="pWord">
+      <input type="firstName" class="form-control" name="firstName" ng-model="firstName">
     </div>
     <div class="form-group">
       <label for="lastName">Last Name</label>
-      <input type="lastName" class="form-control" name="lastName" ng-model="pWord">
+      <input type="lastName" class="form-control" name="lastName" ng-model="lastName">
     </div>
-    <button class="btn btn-block btn-lg btn-primary" ng-click="login()">Log in</button>
+    <button class="btn btn-block btn-lg btn-primary" ng-click="signUp()">sign up</button>
     <button class="btn btn-block btn-lg" ng-click="toggleSignup()">Back to Login</button>
   </form>
 </div>
