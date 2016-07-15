@@ -31,6 +31,7 @@ angular.module('app')
      var getUserPitch = function(){
        $http.get('/pitches/owner').then(function(data){
          angular.copy(data, UserPitch)
+         console.log(UserPitch);
        })
        return UserPitch;
      }
