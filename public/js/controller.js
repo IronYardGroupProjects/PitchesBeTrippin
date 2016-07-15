@@ -4,6 +4,6 @@ angular.module('app')
 
       $scope.hiWorld = "hello world!";
 
-      $scope.login = function(){mainService.login($scope.uName, $scope.pWord)};
+    
 
   }])

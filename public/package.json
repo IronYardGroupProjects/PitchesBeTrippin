@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "angular": "^1.5.7",
+    "angular-route": "^1.5.7",
     "angular-strap": "^2.3.9"
   }
 }
