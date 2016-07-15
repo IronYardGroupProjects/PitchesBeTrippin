@@ -1,8 +1,8 @@
 angular.module('app')
 
-  .factory('mainService', ['$http', function($http){
+  .factory('mainService', ['$http', '$location', function($http, $location){
 
-    var UserPitch = ["a"];
+    var UserPitch = [];
     var InterstedPitches=[];
     var AllPitches=[];
 
@@ -10,7 +10,7 @@ angular.module('app')
 
      var login = function(uname, pword) {
        $http.post('/login', {username:uname, password: pword}).then(function(data){
-         console.log(data);
+         data.statusText === "OK" ? $location.path('/pitches') : null
        })
      }
 

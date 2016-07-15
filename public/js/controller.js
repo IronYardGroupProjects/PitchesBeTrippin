@@ -7,6 +7,7 @@ angular.module('app')
       }
 
       $scope.newUserPitch = function(){
+        console.log("here");
         mainService.addPitch($scope.pitchTitle, $scope.pitchDescript)
       }
 
@@ -14,15 +15,15 @@ angular.module('app')
         return mainService.userHasPitch();
       }
 
-    //  $scope.allPitches = mainService.getAll();
+     $scope.allPitches = mainService.getAll();
 
-    //  $scope.userPitch = mainService.getUserPitch();
+     $scope.userPitch = mainService.getUserPitch();
 
-  //    $scope.InterstedPitches = mainService.getInterested();
+     $scope.InterstedPitches = mainService.getInterested();
 
-    //  $scope.toggleInterest = function(){
-  //      mainService.getInterested();
-    //  }
+     $scope.toggleInterest = function(){
+       mainService.getInterested();
+     }
 
 
   }])
