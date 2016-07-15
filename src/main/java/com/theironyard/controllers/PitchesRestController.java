@@ -55,7 +55,7 @@ public class PitchesRestController {
     //  pitches/interest - get
     @RequestMapping(path = "/pitches/interest", method = RequestMethod.GET)
     public ResponseEntity<Object> getInterestPitches(HttpSession session) {
-        User user = userRepo.findOne(Integer.valueOf((String) session.getAttribute("id")));
+        User user = userRepo.findOne((Integer) session.getAttribute("id"));
         if (user == null) return new ResponseEntity<Object>(HttpStatus.FORBIDDEN);
         int id = Integer.valueOf((String) session.getAttribute("id"));
         ArrayList<Pitch> pitches = (ArrayList<Pitch>) pitchRepo.findAll();
@@ -67,7 +67,7 @@ public class PitchesRestController {
     //  pitches - post, put, delete
     @RequestMapping(path = "/pitches", method = RequestMethod.POST)
     public ResponseEntity<Object> createPitch(@RequestBody Pitch pitch, HttpSession session) {
-        User user = userRepo.findOne(Integer.valueOf((String) session.getAttribute("id")));
+        User user = userRepo.findOne((Integer) session.getAttribute("id"));
         if (user == null) return new ResponseEntity<Object>(HttpStatus.FORBIDDEN);
         pitch = new Pitch(pitch.getTitle(), pitch.getDescription(), user);
         pitchRepo.save(pitch);
@@ -76,7 +76,7 @@ public class PitchesRestController {
     //  pitches/{id}/interest - put
     @RequestMapping(path = "/pitches/{id}/interest", method = RequestMethod.PUT)
     public HttpStatus addInterest(HttpSession session, @PathVariable("id") int id) {
-        User user = userRepo.findOne(Integer.valueOf((String) session.getAttribute("id")));
+        User user = userRepo.findOne((Integer) session.getAttribute("id"));
         if (user == null) return HttpStatus.FORBIDDEN;
         Pitch pitch = pitchRepo.findOne(id);
         if (pitch != null) {
@@ -88,7 +88,7 @@ public class PitchesRestController {
     }
     @RequestMapping(path = "/pitches", method = RequestMethod.PUT)
     public ResponseEntity<Object> updatePitch(HttpSession session, @RequestBody Pitch pitchUpdate) {
-        User user = userRepo.findOne(Integer.valueOf((String) session.getAttribute("id")));
+        User user = userRepo.findOne((Integer) session.getAttribute("id"));
         if (user == null) return new ResponseEntity<Object>(HttpStatus.FORBIDDEN);
         Pitch pitch = pitchRepo.findOne(pitchUpdate.getId());
         if (pitchUpdate.getTitle() != null) pitch.setTitle(pitchUpdate.getTitle());
@@ -97,7 +97,7 @@ public class PitchesRestController {
     }
     @RequestMapping(path = "/pitches", method = RequestMethod.DELETE)
     public ResponseEntity<Object> updatePitch(HttpSession session) {
-        User user = userRepo.findOne(Integer.valueOf((String) session.getAttribute("id")));
+        User user = userRepo.findOne((Integer) session.getAttribute("id"));
         if (user == null) return new ResponseEntity<Object>(HttpStatus.FORBIDDEN);
         Pitch pitch = pitchRepo.findFirstByOwner(user);
         return new ResponseEntity<Object>(HttpStatus.OK);
