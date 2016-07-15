@@ -57,7 +57,7 @@ public class PitchesRestController {
     public ResponseEntity<Object> getInterestPitches(HttpSession session) {
         User user = userRepo.findOne((Integer) session.getAttribute("id"));
         if (user == null) return new ResponseEntity<Object>(HttpStatus.FORBIDDEN);
-        int id = Integer.valueOf((String) session.getAttribute("id"));
+        int id = (Integer) session.getAttribute("id");
         ArrayList<Pitch> pitches = (ArrayList<Pitch>) pitchRepo.findAll();
         pitches = pitches.stream()
                 .filter(pitch -> pitch.getOwner().getId() == id)
